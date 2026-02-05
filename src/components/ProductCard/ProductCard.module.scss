@@ -1,0 +1,41 @@
+.card {
+  border: 1px solid #eef0f4;
+  border-radius: 2px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.imageWrap {
+  padding: 18px;
+  display: grid;
+  place-items: center;
+}
+
+.image {
+  width: 220px;
+  height: 220px;
+  object-fit: contain;
+}
+
+.body {
+  padding: 10px 16px 16px;
+  text-align: center;
+}
+
+.title {
+  margin: 6px 0;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.category {
+  font-size: 10px;
+  letter-spacing: 0.6px;
+  color: #9ca3af;
+  margin-bottom: 6px;
+}
+
+.price {
+  color: var(--accent);
+  font-weight: 800;
+}
