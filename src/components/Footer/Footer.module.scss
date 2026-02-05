@@ -1,0 +1,13 @@
+.footer {
+  border-top: 1px solid var(--line);
+  background: #fff;
+}
+
+.inner {
+  min-height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: 13px;
+}
