@@ -67,17 +67,6 @@
   color: var(--accent);
 }
 
-.banner {
-  width: 600px;
-  height: 70px;
-  background: #d1d5db;
-  color: #111;
-  display: grid;
-  place-items: center;
-  border-radius: 2px;
-  font-weight: 600;
-}
-
 .redLine {
   height: 3px;
   background: var(--accent);
@@ -110,10 +99,6 @@
 }
 
 @media (max-width: 900px) {
-  .banner {
-    display: none;
-  }
-
   .mainInner {
     min-height: 78px;
   }

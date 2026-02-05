@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import styles from "./login.module.scss";
+import { login } from "@/lib/api/auth.api";
 
 type FieldErrors = {
   username?: string;
@@ -13,6 +14,8 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
 
   const [errors, setErrors] = useState<FieldErrors>({});
+  const [apiError, setApiError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const isValid = useMemo(
     () => username.trim().length >= 3 && password.trim().length >= 3,
@@ -27,9 +30,20 @@ export default function LoginPage() {
     return Object.keys(e).length === 0;
   }
 
-  function onSubmit(e: React.FormEvent) {
+  async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
-    validate();
+    setApiError(null);
+    if (!validate()) return;
+
+    try {
+      setLoading(true);
+      const res = await login({ username, password });
+      console.log("Login success", res);
+    } catch {
+      setApiError("Invalid username or password.");
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -58,8 +72,10 @@ export default function LoginPage() {
           {errors.password ? <div className={styles.error}>{errors.password}</div> : null}
         </div>
 
-        <button className={styles.button} disabled={!isValid}>
-          Login
+        {apiError ? <div className={styles.apiError}>{apiError}</div> : null}
+
+        <button className={styles.button} disabled={!isValid || loading}>
+          {loading ? "Loading..." : "Login"}
         </button>
       </form>
     </section>

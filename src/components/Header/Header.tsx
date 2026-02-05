@@ -31,7 +31,6 @@ export default function Header() {
           <div className={styles.logo}>
             Abelohost Shop<span className={styles.logoDot}>.</span>
           </div>
-          <div className={styles.banner}>600 x 70</div>
         </div>
       </div>
 
