@@ -107,3 +107,23 @@
     font-size: 28px;
   }
 }
+
+.userBlock {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.userName {
+  color: #e5e7eb;
+  font-weight: 600;
+}
+
+.logout {
+  border: 0;
+  background: transparent;
+  color: #e5e7eb;
+  cursor: pointer;
+  padding: 6px 8px;
+}
+

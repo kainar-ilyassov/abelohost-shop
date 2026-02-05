@@ -39,3 +39,20 @@
   color: var(--accent);
   font-weight: 800;
 }
+
+.addBtn {
+  margin-top: 10px;
+  width: 100%;
+  border: 0;
+  padding: 10px 12px;
+  cursor: pointer;
+  background: #111827;
+  color: #fff;
+  font-weight: 700;
+  border-radius: 2px;
+}
+
+.addBtn:hover {
+  opacity: 0.9;
+}
+

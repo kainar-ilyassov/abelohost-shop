@@ -1,8 +1,10 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 import styles from "./login.module.scss";
 import { login } from "@/lib/api/auth.api";
+import { useAuthStore } from "@/store/auth.store";
 
 type FieldErrors = {
   username?: string;
@@ -10,6 +12,9 @@ type FieldErrors = {
 };
 
 export default function LoginPage() {
+  const router = useRouter();
+  const loginSuccess = useAuthStore((s) => s.loginSuccess);
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -37,8 +42,27 @@ export default function LoginPage() {
 
     try {
       setLoading(true);
+
       const res = await login({ username, password });
-      console.log("Login success", res);
+      const token = res.token ?? res.accessToken;
+
+      if (!token) {
+        setApiError("Token was not returned by API.");
+        return;
+      }
+
+      loginSuccess({
+        token,
+        user: {
+          id: res.id,
+          username: res.username,
+          email: res.email,
+          firstName: res.firstName,
+          lastName: res.lastName,
+        },
+      });
+
+      router.push("/");
     } catch {
       setApiError("Invalid username or password.");
     } finally {

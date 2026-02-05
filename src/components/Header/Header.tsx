@@ -1,7 +1,13 @@
+"use client";
+
 import Link from "next/link";
 import styles from "./Header.module.scss";
+import { useAuthStore } from "@/store/auth.store";
 
 export default function Header() {
+  const { user, token, logout, isHydrated } = useAuthStore();
+  const isAuthed = Boolean(token);
+
   return (
     <header className={styles.header}>
       <div className={styles.topBar}>
@@ -19,9 +25,20 @@ export default function Header() {
           </div>
 
           <div className={styles.topRight}>
-            <Link className={styles.loginLink} href="/login">
-              Login
-            </Link>
+            {isHydrated && isAuthed && user ? (
+              <div className={styles.userBlock}>
+                <span className={styles.userName}>
+                  {user.firstName} {user.lastName}
+                </span>
+                <button className={styles.logout} onClick={logout}>
+                  Logout
+                </button>
+              </div>
+            ) : (
+              <Link className={styles.loginLink} href="/login">
+                Login
+              </Link>
+            )}
           </div>
         </div>
       </div>
