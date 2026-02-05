@@ -20,3 +20,14 @@
     grid-template-columns: 1fr;
   }
 }
+
+.state {
+  padding: 16px 0;
+  color: var(--muted);
+}
+
+.stateError {
+  padding: 16px 0;
+  color: var(--accent);
+}
+
