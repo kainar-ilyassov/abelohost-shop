@@ -1,0 +1,39 @@
+:root {
+  --container: 1200px;
+
+  --darkTop: #0b0d12;
+  --dark: #121521;
+
+  --accent: #e11d2e;
+  --line: #e5e7eb;
+  --muted: #6b7280;
+  --text: #111827;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  color: var(--text);
+  background: #fff;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 16px;
+}
