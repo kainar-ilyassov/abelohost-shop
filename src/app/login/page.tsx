@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import styles from "./login.module.scss";
 import { login } from "@/lib/api/auth.api";
@@ -14,6 +14,8 @@ type FieldErrors = {
 export default function LoginPage() {
   const router = useRouter();
   const loginSuccess = useAuthStore((s) => s.loginSuccess);
+  const token = useAuthStore((s) => s.token);
+  const isHydrated = useAuthStore((s) => s.isHydrated);
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -21,6 +23,11 @@ export default function LoginPage() {
   const [errors, setErrors] = useState<FieldErrors>({});
   const [apiError, setApiError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (!isHydrated) return;
+    if (token) router.replace("/");
+  }, [isHydrated, token, router]);
 
   const isValid = useMemo(
     () => username.trim().length >= 3 && password.trim().length >= 3,
@@ -44,15 +51,15 @@ export default function LoginPage() {
       setLoading(true);
 
       const res = await login({ username, password });
-      const token = res.token ?? res.accessToken;
+      const t = res.token ?? res.accessToken;
 
-      if (!token) {
+      if (!t) {
         setApiError("Token was not returned by API.");
         return;
       }
 
       loginSuccess({
-        token,
+        token: t,
         user: {
           id: res.id,
           username: res.username,
@@ -68,6 +75,14 @@ export default function LoginPage() {
     } finally {
       setLoading(false);
     }
+  }
+
+  if (isHydrated && token) {
+    return (
+      <section className={styles.wrap}>
+        <h1 className={styles.title}>Redirecting...</h1>
+      </section>
+    );
   }
 
   return (
