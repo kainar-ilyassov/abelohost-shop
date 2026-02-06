@@ -31,7 +31,7 @@ export default function LoginPage() {
 
   const isValid = useMemo(
     () => username.trim().length >= 3 && password.trim().length >= 3,
-    [username, password]
+    [username, password],
   );
 
   function validate(): boolean {

@@ -28,7 +28,7 @@ export default function HomePage() {
             category: p.category,
             price: p.price,
             thumbnail: p.thumbnail,
-          }))
+          })),
         );
       } catch {
         if (alive) setError("Failed to load products. Please try again later.");
